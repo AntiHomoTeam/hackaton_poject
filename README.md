@@ -199,3 +199,103 @@ public class dateless {
 			}
 		}
 		//System.out.println("1) ... ...");
+		//System.out.println("2) ... ...");
+		//System.out.println(".) ... ...");
+		
+		// print total cost
+		System.out.println("Total: " + getTotalCost(orders) + " T");
+	}
+
+// TASK-6: Total Cost
+	// Implement the method below
+	/**
+	Parses the orders array to calculate the total cost 
+	*/
+	public static int getTotalCost(String[] orders){
+		// return total cost
+		int total = 0;
+		for (int i = 0; i < orders.length; i++) {
+			if (orders[i] != null) {
+				String k = orders[i].substring(orders[i].indexOf(":")+1);
+				total += Integer.parseInt(k);
+			}
+		}
+		return total;
+	}
+
+	/**
+	Order confirmation: prints full order info, calculates discount (if applicable), 
+	and displays other details like date, time and order ID
+	*/
+	public static void confirmOrder(String[] orders, boolean discount){
+		final int DISCOUNT_AMOUNT = 10;	// discount amount in percentage
+
+		//display order confirmation
+		System.out.println("#############################################");
+		previewOrder(orders);
+
+		// calculate total cost
+		int cost = getTotalCost(orders);
+
+// TASK-7: Discount Calculation
+		// Apply discount only if user is eligible
+		// update and print the cost with discount
+		// ADD LINES HERE
+		if (discount == true) {
+			cost *= 0.9;
+		
+		System.out.println("-------------------------------");
+		System.out.println("TOTAL with DISCOUNT (on presenting ID only!):");
+		System.out.println(cost);
+		}
+		
+		System.out.println("-----------------------------");
+		System.out.println("Your order will be ready for pickup in 30 minutes.");
+
+		System.out.print("Date: ");
+		printCurrentDate();				// prints current date
+
+		System.out.print("\tTime: ");
+		printCurrentTime();				// prints current time
+		System.out.println();
+
+		System.out.println("Order ID: " + generateCode());	// generates random ID
+	}
+
+// TASK-8: Current Date
+	// Implement the method below
+	/**
+	Prints the current system date in DD.MM.YYYY format
+	HINT: https://www.javatpoint.com/java-get-current-date
+	*/
+	public static void printCurrentDate(){
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+		LocalDateTime now = LocalDateTime.now();  
+		System.out.print(dtf.format(now));  
+	} 
+
+// TASK-9: Current Time
+	// Implement the method below
+	/**
+	Prints the current system time in HH:MM format
+	*/
+	public static void printCurrentTime(){      
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		System.out.print(dtf.format(now));  
+	}
+
+// TASK-10: Generate Code
+	// Implement the method below
+	/**
+	Generates a random 4-digit number and returns as a String consisting of 4 digits fills with leading zeros if necessary
+	Ex: "1097", "0083"
+	*/
+	public static String generateCode(){
+		// return 4-digit random code
+		int b = (int) (Math.random()*9000)+1000;
+		String l = String.valueOf(b);
+		return l;
+	}
+}
+
